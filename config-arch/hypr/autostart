@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# https://wiki.hyprland.org/FAQ/#some-of-my-apps-take-a-really-long-time-to-open
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
+systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &
+
+# Policy Authentication Agent
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# Sets xwayland scale - Patch blurry text
+xprop -root -f _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2 &
+
+# fix sysctl
+sysctl --system &
+#####################################
+#              Apps                 #
+#####################################
+
+
+waybar &
+nm-applet --indicator &
+blueman-applet &
+dunst &
+#swaync &
+hyprpaper &
+#swww init
+#
+#
